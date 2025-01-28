@@ -1,23 +1,20 @@
-# Use official Node.js image as base
-FROM node:23
+FROM node:23 as builder
 
-# Set working directory
 WORKDIR /frontend
 
-# Copy the package.json and install dependencies
-COPY frontend/package.json .
-COPY frontend/package-lock.json .
+COPY /frontend/package*.json ./
 
 RUN npm install
 
-# Copy the rest of the frontend code
-COPY frontend/ .
+COPY /frontend/ .
 
-# Build the React app for production
 RUN npm run build
 
-# Expose port for React app
+
+FROM nginx:alpine
+
+COPY --from=builder /frontend/dist /usr/share/nginx/html
+
 EXPOSE 3000
 
-# Command to run React app in production (use serve to serve static files)
-CMD ["npx", "serve", "build"]
+CMD ["nginx", "-g", "daemon off;"]

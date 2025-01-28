@@ -5,10 +5,8 @@ const AuthContext = createContext();
 
 /* eslint-disable react/prop-types */
 const AuthProvider = ({ children }) => {
-  // State to hold the authentication token
   const [token, setToken_] = useState(localStorage.getItem("token"));
 
-  // Function to set the authentication token
   const setToken = (newToken) => {
     setToken_(newToken);
   };

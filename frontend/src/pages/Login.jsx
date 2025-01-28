@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post("http://127.0.0.1:8000/api/token/", {
+      const { data } = await axios.post(`${import.meta.env.VITE_URL}api/token/`, {
         username: email,
         password,
       });
@@ -37,7 +37,7 @@ const Login = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh", // Make sure it takes up full screen height
+        height: "100vh",
         padding: 0,
       }}
     >
@@ -49,7 +49,7 @@ const Login = () => {
           padding: "2rem",
           borderRadius: 1,
           boxShadow: 3,
-          width: "100%", // Make sure the form does not go outside the container
+          width: "100%",
         }}
       >
         <Typography variant="h5" gutterBottom>
